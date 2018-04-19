@@ -2,11 +2,9 @@
 
 namespace Dhii\Config;
 
-use ArrayAccess;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
-use stdClass;
 
 /**
  * Trait ReplaceReferencesCapableTrait.
@@ -22,16 +20,21 @@ trait ReplaceReferencesCapableTrait
      *
      * @since [*next-version*]
      *
-     * @param string|Stringable                             $subject      The subject string.
-     * @param array|stdClass|ArrayAccess|ContainerInterface $replacements The container of replacement values.
+     * @param string             $input
+     * @param ContainerInterface $container
+     * @param string             $startDelimiter
+     * @param string             $endDelimiter
+     *
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      *
      * @return string The resulting string.
      */
-    protected function _replaceReferences($input, ContainerInterface $container)
+    protected function _replaceReferences($input, ContainerInterface $container, $startDelimiter = '${', $endDelimiter = '}')
     {
         $subject = $this->_normalizeString($input);
 
-        preg_match_all('/\${[^\}]+}/', $subject, $matches);
+        preg_match_all('/\\' . $startDelimiter . '[^\\' . $endDelimiter . ']+' . $endDelimiter . '/', $subject, $matches);
         $tokens = $matches[0];
 
         foreach ($tokens as $token) {
