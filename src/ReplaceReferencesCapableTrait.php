@@ -38,7 +38,7 @@ trait ReplaceReferencesCapableTrait
         $tokens = $matches[0];
 
         foreach ($tokens as $token) {
-            $token   = substr($token, 2, -1);
+            $token   = substr($token, strlen($startDelimiter), 0 - strlen($endDelimiter));
             $value   = $container->get($token);
             $subject = str_replace($token, $value, $subject);
         }
