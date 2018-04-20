@@ -20,10 +20,10 @@ trait ReplaceReferencesCapableTrait
      *
      * @since [*next-version*]
      *
-     * @param string             $input
+     * @param string|Stringable  $input
      * @param ContainerInterface $container
-     * @param string             $startDelimiter
-     * @param string             $endDelimiter
+     * @param string|Stringable  $startDelimiter
+     * @param string|Stringable  $endDelimiter
      *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
@@ -32,18 +32,45 @@ trait ReplaceReferencesCapableTrait
      */
     protected function _replaceReferences($input, ContainerInterface $container, $startDelimiter = '${', $endDelimiter = '}')
     {
-        $subject = $this->_normalizeString($input);
+        $input = $this->_normalizeString($input);
 
-        preg_match_all('/\\' . $startDelimiter . '[^\\' . $endDelimiter . ']+' . $endDelimiter . '/', $subject, $matches);
-        $tokens = $matches[0];
+        $startDelimiter = $this->_normalizeRegexpDelimiter($startDelimiter);
+        $endDelimiter   = $this->_normalizeRegexpDelimiter($endDelimiter);
 
-        foreach ($tokens as $token) {
-            $token   = substr($token, strlen($startDelimiter), 0 - strlen($endDelimiter));
-            $value   = $container->get($token);
-            $subject = str_replace($token, $value, $subject);
+        $regexp = '/' . $startDelimiter . '(.*?)' . $endDelimiter . '/';
+
+        preg_match_all($regexp, $input, $matches);
+
+        for ($i = 0; $i < count($matches[0]); ++$i) {
+            $token = $matches[0][$i];
+            $key   = $matches[1][$i];
+            $input = str_replace($token, $container->get($key), $input);
         }
 
-        return $subject;
+        return $input;
+    }
+
+    /**
+     * Normalize regexp delimiter, so all chars passed will be recognized
+     * as not special chars, and will not affect regular expression.
+     *
+     * For example, this `${` becomes `\$\{` and doesn't affect regular expression.
+     *
+     * @since [*next-version*]
+     *
+     * @param string|Stringable $delimiter
+     *
+     * @return string
+     */
+    protected function _normalizeRegexpDelimiter($delimiter)
+    {
+        $delimiter           = $this->_normalizeString($delimiter);
+        $normalizedDelimiter = '';
+        for ($i = 0; $i < strlen($delimiter); ++$i) {
+            $normalizedDelimiter .= '\\' . $delimiter[$i];
+        }
+
+        return $normalizedDelimiter;
     }
 
     /**
