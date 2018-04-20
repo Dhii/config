@@ -2,9 +2,7 @@
 
 namespace Dhii\Config\UnitTest;
 
-
 use Dhii\Config\StringSplitCapableTrait as TestSubject;
-
 use Xpmock\TestCase;
 use Exception as RootException;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
