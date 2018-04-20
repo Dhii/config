@@ -3,8 +3,10 @@
 namespace Dhii\Config;
 
 use InvalidArgumentException;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Dhii\Util\String\StringableInterface as Stringable;
+use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * Trait ReplaceReferencesCapableTrait.
@@ -20,17 +22,18 @@ trait ReplaceReferencesCapableTrait
      *
      * @since [*next-version*]
      *
-     * @param string|Stringable  $input
+     * @param string|Stringable  $input          Input string to find and replace references
      * @param ContainerInterface $container
      * @param string|Stringable  $startDelimiter
+     * @param mixed              $default        String to replace reference if key not found in container.
      * @param string|Stringable  $endDelimiter
      *
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      *
      * @return string The resulting string.
      */
-    protected function _replaceReferences($input, ContainerInterface $container, $startDelimiter = '${', $endDelimiter = '}')
+    protected function _replaceReferences($input, ContainerInterface $container, $default = null, $startDelimiter = '${', $endDelimiter = '}')
     {
         $input = $this->_normalizeString($input);
 
@@ -44,7 +47,12 @@ trait ReplaceReferencesCapableTrait
         for ($i = 0; $i < count($matches[0]); ++$i) {
             $token = $matches[0][$i];
             $key   = $matches[1][$i];
-            $input = str_replace($token, $container->get($key), $input);
+            try {
+                $value = $container->get($key);
+            } catch (NotFoundExceptionInterface $e) {
+                $value = $default !== null ? $this->_normalizeString($default) : $token;
+            }
+            $input = str_replace($token, $value, $input);
         }
 
         return $input;
