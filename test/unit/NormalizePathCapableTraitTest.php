@@ -202,7 +202,7 @@ class NormalizePathCapableTraitTest extends TestCase
         $separator = uniqid('separator');
         $path = implode($separator, $segments);
         $exception = $this->createInvalidArgumentException('Not a valid iterable');
-        $subject = $this->createInstance(['_normalizeIterable', '_stringSplit']);
+        $subject = $this->createInstance(['_normalizeIterable', '_stringableSplit']);
         $_subject = $this->reflect($subject);
 
         $subject->expects($this->exactly(1))
@@ -210,7 +210,7 @@ class NormalizePathCapableTraitTest extends TestCase
             ->with($path)
             ->will($this->throwException($exception));
         $subject->expects($this->exactly(1))
-            ->method('_stringSplit')
+            ->method('_stringableSplit')
             ->with($path, $separator)
             ->will($this->returnValue($segments));
 

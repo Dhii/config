@@ -32,7 +32,7 @@ trait NormalizePathCapableTrait
         try {
             return $this->_normalizeIterable($path);
         } catch (InvalidArgumentException $e) {
-            return $this->_stringSplit($path, $separator);
+            return $this->_stringableSplit($path, $separator);
         }
     }
 
@@ -48,7 +48,7 @@ trait NormalizePathCapableTrait
      *
      * @return array|stdClass|Traversable The list of pieces.
      */
-    abstract protected function _stringSplit($subject, $separator);
+    abstract protected function _stringableSplit($subject, $separator);
 
     /**
      * Normalizes an iterable.
