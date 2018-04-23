@@ -45,9 +45,8 @@ trait ReplaceReferencesCapableTrait
 
         preg_match_all($regexp, $input, $matches);
 
-        for ($i = 0; $i < count($matches[0]); ++$i) {
-            $token = $matches[0][$i];
-            $key   = $matches[1][$i];
+        foreach ($matches[0] as $i => $token) {
+            $key = $matches[1][$i];
             try {
                 $value = $container->get($key);
             } catch (NotFoundExceptionInterface $e) {
