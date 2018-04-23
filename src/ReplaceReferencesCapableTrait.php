@@ -34,13 +34,14 @@ trait ReplaceReferencesCapableTrait
      */
     protected function _replaceReferences($input, ContainerInterface $container, $default = null, $startDelimiter = '${', $endDelimiter = '}')
     {
-        $input        = $this->_normalizeString($input);
-        $defaultValue = $default === null ? '' : $this->_normalizeString($default);
+        $regexpDelimiter = '/';
+        $input           = $this->_normalizeString($input);
+        $defaultValue    = $default === null ? '' : $this->_normalizeString($default);
 
-        $startDelimiter = preg_quote($this->_normalizeString($startDelimiter), '/');
-        $endDelimiter   = preg_quote($this->_normalizeString($endDelimiter), '/');
+        $startDelimiter = preg_quote($this->_normalizeString($startDelimiter), $regexpDelimiter);
+        $endDelimiter   = preg_quote($this->_normalizeString($endDelimiter), $regexpDelimiter);
 
-        $regexp = '/' . $startDelimiter . '(.*?)' . $endDelimiter . '/';
+        $regexp = $regexpDelimiter . $startDelimiter . '(.*?)' . $endDelimiter . $regexpDelimiter;
 
         preg_match_all($regexp, $input, $matches);
 
