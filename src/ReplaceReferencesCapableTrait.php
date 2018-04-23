@@ -35,10 +35,11 @@ trait ReplaceReferencesCapableTrait
      */
     protected function _replaceReferences($input, ContainerInterface $container, $default = null, $startDelimiter = '${', $endDelimiter = '}')
     {
-        $input = $this->_normalizeString($input);
+        $input        = $this->_normalizeString($input);
+        $defaultValue = $default === null ? '' : $this->_normalizeString($default);
 
-        $startDelimiter = $this->_normalizeRegexpDelimiter($startDelimiter);
-        $endDelimiter   = $this->_normalizeRegexpDelimiter($endDelimiter);
+        $startDelimiter = preg_quote($this->_normalizeString($startDelimiter));
+        $endDelimiter   = preg_quote($this->_normalizeString($endDelimiter));
 
         $regexp = '/' . $startDelimiter . '(.*?)' . $endDelimiter . '/';
 
@@ -50,35 +51,12 @@ trait ReplaceReferencesCapableTrait
             try {
                 $value = $container->get($key);
             } catch (NotFoundExceptionInterface $e) {
-                $value = $default !== null ? $this->_normalizeString($default) : $token;
+                $value = $defaultValue;
             }
             $input = str_replace($token, $value, $input);
         }
 
         return $input;
-    }
-
-    /**
-     * Normalize regexp delimiter, so all chars passed will be recognized
-     * as not special chars, and will not affect regular expression.
-     *
-     * For example, this `${` becomes `\$\{` and doesn't affect regular expression.
-     *
-     * @since [*next-version*]
-     *
-     * @param string|Stringable $delimiter
-     *
-     * @return string
-     */
-    protected function _normalizeRegexpDelimiter($delimiter)
-    {
-        $delimiter           = $this->_normalizeString($delimiter);
-        $normalizedDelimiter = '';
-        for ($i = 0; $i < strlen($delimiter); ++$i) {
-            $normalizedDelimiter .= '\\' . $delimiter[$i];
-        }
-
-        return $normalizedDelimiter;
     }
 
     /**
