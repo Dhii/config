@@ -3,7 +3,7 @@
 namespace Dhii\Config\UnitTest;
 
 use Dhii\Config\ConfigInterface;
-use Dhii\Config\GetPathSegmentSeparatorCapableStandardTrait as TestSubject;
+use Dhii\Config\PathSegmentSeparatorAwareTrait as TestSubject;
 use Xpmock\TestCase;
 use Exception as RootException;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
@@ -14,14 +14,14 @@ use PHPUnit_Framework_MockObject_MockBuilder as MockBuilder;
  *
  * @since [*next-version*]
  */
-class GetPathSegmentSeparatorCapableStandardTraitTest extends TestCase
+class PathSegmentSeparatorAwareTraitTest extends TestCase
 {
     /**
      * The class name of the test subject.
      *
      * @since [*next-version*]
      */
-    const TEST_SUBJECT_CLASSNAME = 'Dhii\Config\GetPathSegmentSeparatorCapableStandardTrait';
+    const TEST_SUBJECT_CLASSNAME = 'Dhii\Config\PathSegmentSeparatorAwareTrait';
 
     /**
      * Creates a new instance of the test subject.
@@ -155,22 +155,5 @@ class GetPathSegmentSeparatorCapableStandardTraitTest extends TestCase
             $subject,
             'A valid instance of the test subject could not be created.'
         );
-    }
-
-    /**
-     * Tests that `_getPathSegmentSeparator()` works as expected.
-     *
-     * This is mostly an API test, to ensure that the separator complies with the Config standard.
-     *
-     * @since [*next-version*]
-     */
-    public function testGetPathSegmentSeparator()
-    {
-        $key = uniqid('key');
-        $subject = $this->createInstance();
-        $_subject = $this->reflect($subject);
-
-        $result = $_subject->_getPathSegmentSeparator($key);
-        $this->assertEquals(ConfigInterface::KEY_SEPARATOR, $result, 'Wrong key separator retrieved');
     }
 }

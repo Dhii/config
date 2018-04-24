@@ -21,7 +21,7 @@ use Psr\Container\ContainerInterface as BaseContainerInterface;
     {
         public function _hasData($key)
         {
-            $separator = $this->_getPathSegmentSeparator($key);
+            $separator = $this->_getPathSegmentSeparator();
             $path      = $this->_normalizePath($key, $separator);
             $store     = $this->_getDataStore();
 
@@ -54,19 +54,13 @@ use Psr\Container\ContainerInterface as BaseContainerInterface;
     abstract protected function _getDataStore();
 
     /**
-     * Retrieves the separator for the specified key.
+     * Retrieves the separator of segments in a string path.
      *
      * @since [*next-version*]
      *
-     * @param string|Stringable|null $key The key to get the path separator for, if any.
-     *
-     * @throws InvalidArgumentException If key is invalid.
-     *
-     * @return string|Stringable The path separator.
-     *                           The separator may be deduced from the key, but this is NOT REQUIRED.
-     *                           If no key is supplied, a default separator MUST be returned.
+     * @return string|Stringable|null The path separator.
      */
-    abstract protected function _getPathSegmentSeparator($key = null);
+    abstract protected function _getPathSegmentSeparator();
 
     /**
      * Normalizes a path.

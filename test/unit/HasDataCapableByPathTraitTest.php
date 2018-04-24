@@ -173,7 +173,6 @@ class HasDataCapableByPathTraitTest extends TestCase
 
         $subject->expects($this->exactly(1))
             ->method('_getPathSegmentSeparator')
-            ->with($key)
             ->will($this->returnValue($separator));
         $subject->expects($this->exactly(1))
             ->method('_normalizePath')
