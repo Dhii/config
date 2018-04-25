@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5f46a090e87bb7109769372774ebb8d",
+    "content-hash": "30d52224c645999ae5139285065cdc12",
     "packages": [
         {
             "name": "dhii/collections-interface",
@@ -779,19 +779,20 @@
         },
         {
             "name": "dhii/iterator-abstract",
-            "version": "dev-develop",
+            "version": "v0.1-alpha2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/iterator-abstract.git",
-                "reference": "211370b385b1dad6c45b94ab678a63690cac25b5"
+                "reference": "576484183865575ffc2a0d586132741329626fb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/iterator-abstract/zipball/211370b385b1dad6c45b94ab678a63690cac25b5",
-                "reference": "211370b385b1dad6c45b94ab678a63690cac25b5",
+                "url": "https://api.github.com/repos/Dhii/iterator-abstract/zipball/576484183865575ffc2a0d586132741329626fb8",
+                "reference": "576484183865575ffc2a0d586132741329626fb8",
                 "shasum": ""
             },
             "require": {
+                "dhii/stringable-interface": "^0.1",
                 "php": "^5.4 | ^7.0"
             },
             "require-dev": {
@@ -822,7 +823,14 @@
                     "email": "development@dhii.co"
                 }
             ],
-            "time": "2018-01-24T11:51:26+00:00"
+            "description": "Functionality for iterators that comply with dhii/iterator-interface, or are otherwise based on iteration objects",
+            "keywords": [
+                "abstract",
+                "iteration",
+                "iterator",
+                "trait"
+            ],
+            "time": "2018-04-25T12:20:32+00:00"
         },
         {
             "name": "dhii/iterator-base",
@@ -934,16 +942,16 @@
         },
         {
             "name": "dhii/iterator-interface",
-            "version": "dev-develop",
+            "version": "v0.1-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/iterator-interface.git",
-                "reference": "1397c5f808a3c184685afe297deae1a46ff11675"
+                "reference": "0ea9fdbe9c642e18d393240b958e750bb78cb959"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/iterator-interface/zipball/1397c5f808a3c184685afe297deae1a46ff11675",
-                "reference": "1397c5f808a3c184685afe297deae1a46ff11675",
+                "url": "https://api.github.com/repos/Dhii/iterator-interface/zipball/0ea9fdbe9c642e18d393240b958e750bb78cb959",
+                "reference": "0ea9fdbe9c642e18d393240b958e750bb78cb959",
                 "shasum": ""
             },
             "require": {
@@ -981,20 +989,20 @@
                 }
             ],
             "description": "Interfaces for standard iterators",
-            "time": "2018-01-29T11:22:06+00:00"
+            "time": "2018-04-24T19:28:27+00:00"
         },
         {
             "name": "dhii/map",
-            "version": "v0.1-alpha3",
+            "version": "v0.1-alpha5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/map.git",
-                "reference": "271cf27ac64e1c18d0889ff17cacb319ffa23543"
+                "reference": "eaff54bdf71214f9862ec55aba208955ff387dc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/map/zipball/271cf27ac64e1c18d0889ff17cacb319ffa23543",
-                "reference": "271cf27ac64e1c18d0889ff17cacb319ffa23543",
+                "url": "https://api.github.com/repos/Dhii/map/zipball/eaff54bdf71214f9862ec55aba208955ff387dc7",
+                "reference": "eaff54bdf71214f9862ec55aba208955ff387dc7",
                 "shasum": ""
             },
             "require": {
@@ -1003,7 +1011,7 @@
                 "dhii/data-container-base": "^0.1-alpha2",
                 "dhii/data-container-interface": "^0.1 | ^0.2",
                 "dhii/data-object-abstract": "^0.1",
-                "dhii/iterator-abstract": "^0.1",
+                "dhii/iterator-abstract": "^0.1-alpha2",
                 "dhii/iterator-base": "^0.1-alpha2",
                 "dhii/iterator-interface": "^0.1",
                 "php": "^5.4 | ^7.0"
@@ -1036,7 +1044,13 @@
                 }
             ],
             "description": "An iterable container implementation.",
-            "time": "2018-04-06T12:46:26+00:00"
+            "keywords": [
+                "PSR-11",
+                "container",
+                "iterable",
+                "map"
+            ],
+            "time": "2018-04-25T13:36:21+00:00"
         },
         {
             "name": "dhii/normalization-helper-base",
