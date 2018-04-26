@@ -43,7 +43,7 @@ class DereferencingConfigMapFactory implements ConfigFactoryInterface
      *
      * @since [*next-version*]
      *
-     * @param object|stdClass|Traversable $data The
+     * @param array|stdClass|ArrayObject $data The data for the config.
      *
      * @return DereferencingConfigMap The new config map.
      */
