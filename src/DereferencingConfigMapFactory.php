@@ -33,7 +33,7 @@ class DereferencingConfigMapFactory implements ConfigFactoryInterface
      */
     public function make($config = null)
     {
-        $data = $config->{static::K_DATA};
+        $data = $this->_containerGet($config, static::K_DATA);
 
         return $this->_make($data);
     }
