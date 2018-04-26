@@ -45,7 +45,7 @@ class DereferencingConfigMapFactory implements ConfigFactoryInterface
      *
      * @param array|stdClass|ArrayObject $data The data for the config.
      *
-     * @return DereferencingConfigMap The new config map.
+     * @return ConfigInterface The new config.
      */
     protected function _make($data)
     {
