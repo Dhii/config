@@ -25,28 +25,46 @@ use stdClass;
  */
 class DereferencingConfigMap extends AbstractBaseMap
 {
+    /* The delimiter that marks the start of a token.
+     *
+     * @since [*next-version*]
+     */
     const REF_TOKEN_START = '${';
 
+    /* The delimiter that marks the start of a token.
+     *
+     * @since [*next-version*]
+     */
     const REF_TOKEN_END = '}';
 
+    /* @since [*next-version*] */
     use DereferenceTokensCapableTrait;
 
+    /* @since [*next-version*] */
     use ReplaceReferencesCapableTrait;
 
+    /* @since [*next-version*] */
     use GetDataCapableByPathTrait;
 
+    /* @since [*next-version*] */
     use HasDataCapableByPathTrait;
 
+    /* @since [*next-version*] */
     use ContainerGetPathCapableTrait;
 
+    /* @since [*next-version*] */
     use ContainerHasPathCapableTrait;
 
+    /* @since [*next-version*] */
     use TokenStartAwareTrait;
 
+    /* @since [*next-version*] */
     use TokenEndAwareTrait;
 
+    /* @since [*next-version*] */
     use ContainerAwareTrait;
 
+    /* @since [*next-version*] */
     use PathSegmentSeparatorAwareTrait;
 
     /* @since [*next-version*] */
@@ -55,17 +73,22 @@ class DereferencingConfigMap extends AbstractBaseMap
     /* @since [*next-version*] */
     use CreateDataStoreCapableTrait;
 
+    /* @since [*next-version*] */
     use StringableSplitCapableTrait;
 
+    /* @since [*next-version*] */
     use NormalizePathCapableTrait;
 
+    /* @since [*next-version*] */
     use NormalizeArrayCapableTrait;
 
+    /* @since [*next-version*] */
     use NormalizeIterableCapableTrait;
 
     /* @since [*next-version*] */
     use CreateInvalidArgumentExceptionCapableTrait;
 
+    /* @since [*next-version*] */
     use CreateRuntimeExceptionCapableTrait;
 
     /**

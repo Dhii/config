@@ -5,12 +5,32 @@ namespace Dhii\Config;
 use stdClass;
 use Traversable;
 
+/**
+ * A factory of config.
+ *
+ * @since [*next-version*]
+ */
 class DereferencingConfigMapFactory implements ConfigFactoryInterface
 {
+    /**
+     * Name of the factory config key which stores the data.
+     *
+     * @since [*next-version*]
+     */
     const K_DATA = 'data';
 
+    /**
+     * Name of the class that this factory creates.
+     *
+     * @since [*next-version*]
+     */
     const PRODUCT_CLASS_NAME = 'Dhii\Config\DereferencingConfigMap';
 
+    /**
+     * {@inheritdoc}
+     *
+     * @since [*next-version*]
+     */
     public function make($config = null)
     {
         $data = $config->{static::K_DATA};
@@ -25,7 +45,7 @@ class DereferencingConfigMapFactory implements ConfigFactoryInterface
      *
      * @param object|stdClass|Traversable $data The
      *
-     * @return ConfigMap The new config map.
+     * @return DereferencingConfigMap The new config map.
      */
     protected function _make($data)
     {
