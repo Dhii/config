@@ -51,13 +51,16 @@ class DereferencingConfigMapFactory implements ConfigFactoryInterface
     {
         $className = self::PRODUCT_CLASS_NAME;
         $map = new stdClass();
+        $factory = $this->_getFactory();
         foreach ($data as $_key => $_value) {
             if (!is_object($_value) && !is_array($_value)) {
                 $map->{$_key} = $_value;
                 continue;
             }
 
-            $map->{$_key} = $this->_getFactory()->make((object) [self::K_DATA => $_value]);
+            $map->{$_key} = $factory->make((object) [
+                self::K_DATA => $_value,
+            ]);
         }
 
         return new $className($map);
