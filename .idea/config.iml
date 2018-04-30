@@ -37,6 +37,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/php-cs-fixer-config" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/stringable-helper-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/stringable-interface" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/validation-abstract" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/validation-base" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/validation-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofphp/php-cs-fixer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzle/guzzle" />

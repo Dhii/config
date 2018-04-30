@@ -3,6 +3,7 @@
 namespace Dhii\Config\FuncTest;
 
 use Dhii\Config\DereferencingConfigMapFactory as TestSubject;
+use Psr\Container\ContainerInterface;
 use stdClass;
 use Traversable;
 use Xpmock\TestCase;
@@ -140,6 +141,27 @@ class DereferencingConfigMapFactoryTest extends TestCase
     }
 
     /**
+     * Creates a new Container instance.
+     *
+     * @since [*next-version*]
+     *
+     * @param array $methods]
+     *
+     * @return MockObject|ContainerInterface The new container.
+     */
+    public function createContainer($methods = [])
+    {
+        is_array($methods) && $methods = $this->mergeValues($methods, [
+        ]);
+
+        $mock = $this->getMockBuilder('Psr\Container\ContainerInterface')
+            ->setMethods($methods)
+            ->getMock();
+
+        return $mock;
+    }
+
+    /**
      * Tests whether a valid instance of the test subject can be created.
      *
      * @since [*next-version*]
@@ -159,12 +181,34 @@ class DereferencingConfigMapFactoryTest extends TestCase
      */
     public function testMake()
     {
+        $ref1 = 'balance/anton';
+        $ref2 = 'balance/miguel';
+        $val1 = rand(100000, 1000000) / 100;
+        $val2 = rand(100000, 1000000) / 100;
+        $referenceData = [
+            $ref1         => $val1,
+            $ref2         => $val2,
+        ];
+        $container = $this->createContainer(['get', 'has']);
+        $container->expects($this->any())
+            ->method('has')
+            ->will($this->returnValueMap([
+                [$ref1, true],
+                [$ref2, true],
+            ]));
+        $container->expects($this->any())
+            ->method('get')
+            ->will($this->returnValueMap([
+                [$ref1, $referenceData[$ref1]],
+                [$ref2, $referenceData[$ref2]],
+            ]));
+
         $data = [
             [
                 'name' => 'Anton',
                 'surname' => 'Ukhanev',
                 'props' => [
-                    'balance' => 2000.86,
+                    'balance' => sprintf('${%1$s}', $ref1),
                     'phone' => 'iPhone',
                     'own_place' => true,
                 ],
@@ -173,19 +217,24 @@ class DereferencingConfigMapFactoryTest extends TestCase
                 'name' => 'Miguel',
                 'surname' => 'Muscat',
                 'props' => [
-                    'balance' => 1894.32,
+                    'balance' => sprintf('${%1$s}', $ref2),
                     'phone' => 'Samsung',
                     'own_place' => false,
                 ],
             ],
         ];
 
-        $subject = $this->createInstance(null);
+        $subject = $this->createInstance(null, [$container]);
         $_subject = $this->reflect($subject);
 
+        $expected = $data;
+        $expected[0]['props']['balance'] = $val1;
+        $expected[1]['props']['balance'] = $val2;
         $result = $subject->make((object) [TestSubject::K_DATA => $data]);
+        echo $this->_debugIterableRecursive($result);
         $normalizedResult = $this->_iterableToArrayRecursive($result);
-        $this->assertEquals($data, $normalizedResult, 'Config hierarchy has wrong structure');
+        $this->assertEquals($expected, $normalizedResult, 'Config hierarchy has wrong structure');
+
     }
 
     /**
@@ -202,11 +251,36 @@ class DereferencingConfigMapFactoryTest extends TestCase
         $result = [];
         foreach ($iterable as $_key => $_value) {
             $value = (is_array($_value)
-                    || ($_value instanceof Traversable)
-                    || ($_value instanceof stdClass))
+                || ($_value instanceof Traversable)
+                || ($_value instanceof stdClass))
                 ? $this->_iterableToArrayRecursive($_value)
                 : $_value;
             $result[$_key] = $value;
+        }
+
+        return $result;
+    }
+
+    /**
+     */
+    protected function _debugIterableRecursive($iterable, $level = 0)
+    {
+        $indent = "\t";
+        $result = '';
+
+        $type = is_object($iterable) ? get_class($iterable) : gettype($iterable);
+        $result .= sprintf('%1$s:', $type) . "\n";
+
+        foreach ($iterable as $_key => $_value) {
+            $isIterable = (is_array($_value)
+                || ($_value instanceof Traversable)
+                || ($_value instanceof stdClass));
+            $_type = is_object($_value) ? get_class($_value) : gettype($_value);
+            $_indent = str_repeat($indent, $level + 1);
+            $value = $isIterable
+                ? $this->_debugIterableRecursive($_value, $level + 1)
+                : $_value;
+            $result .= $_indent . $_key . ' => ' . (is_scalar($_value) ? (sprintf('(%1$s) ', $_type) . $value) : ($isIterable ? $value : $_type)) . "\n";
         }
 
         return $result;
