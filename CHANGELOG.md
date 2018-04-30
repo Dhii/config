@@ -5,5 +5,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
-### Added
-- `ReplaceReferencesCapableTrait`.
+
+## [0.1-alpha1] - 2018-04-30
+Initial release.
