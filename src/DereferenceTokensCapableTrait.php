@@ -22,7 +22,7 @@ trait DereferenceTokensCapableTrait
      * @since [*next-version*]
      *
      * @param string|Stringable|mixed $value The value, in which tokens may be found.
-     * If value is not stringable, will return it as is.
+     *                                       If value is not stringable, will return it as is.
      *
      * @throws RuntimeException If tokens could not be replaced.
      *
@@ -36,19 +36,17 @@ trait DereferenceTokensCapableTrait
 
         try {
             $value = $this->_normalizeString($value);
-        }
-        catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             return $value;
         }
 
-        $container = $this->_getContainer();
+        $container  = $this->_getContainer();
         $tokenStart = $this->_getTokenStart();
-        $tokenEnd = $this->_getTokenEnd();
+        $tokenEnd   = $this->_getTokenEnd();
 
         try {
             $value = $this->_replaceReferences($value, $container, null, $tokenStart, $tokenEnd);
-        }
-        catch (ContainerExceptionInterface $e) {
+        } catch (ContainerExceptionInterface $e) {
             throw $this->_createRuntimeException($this->__('Could not de-reference tokens'), null, $e);
         }
 
@@ -60,11 +58,11 @@ trait DereferenceTokensCapableTrait
      *
      * @since [*next-version*]
      *
-     * @param string|Stringable  $input          Input string to find and replace references
+     * @param string|Stringable      $input          Input string to find and replace references
      * @param BaseContainerInterface $container      Container to retrieve values for replace.
-     * @param string|Stringable  $startDelimiter Starting delimiter of token for replace
-     * @param mixed              $default        String to replace reference if key not found in container.
-     * @param string|Stringable  $endDelimiter   Ending delimiter of token for replace
+     * @param string|Stringable      $startDelimiter Starting delimiter of token for replace
+     * @param mixed                  $default        String to replace reference if key not found in container.
+     * @param string|Stringable      $endDelimiter   Ending delimiter of token for replace
      *
      * @throws ContainerExceptionInterface Error while retrieving an entry from the container.
      *
@@ -146,5 +144,5 @@ trait DereferenceTokensCapableTrait
      *
      * @return string The translated string.
      */
-    abstract protected function __($string, $args = array(), $context = null);
+    abstract protected function __($string, $args = [], $context = null);
 }

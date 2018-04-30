@@ -136,8 +136,7 @@ class DereferencingConfigMap extends AbstractBaseMap
 
         try {
             return $this->_dereferenceTokens($value);
-        }
-        catch (RuntimeException $e) {
+        } catch (RuntimeException $e) {
             throw $this->_createContainerException($this->__('Could not de-reference tokens'), null, $e, $this);
         }
     }
@@ -150,6 +149,7 @@ class DereferencingConfigMap extends AbstractBaseMap
     protected function _calculateValue(Iterator $iterator)
     {
         $value = parent::_calculateValue($iterator);
+
         return $this->_dereferenceTokens($value);
     }
 }

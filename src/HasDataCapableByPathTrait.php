@@ -3,7 +3,6 @@
 namespace Dhii\Config;
 
 use ArrayAccess;
-use InvalidArgumentException;
 use OutOfRangeException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
