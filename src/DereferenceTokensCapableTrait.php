@@ -30,6 +30,10 @@ trait DereferenceTokensCapableTrait
      */
     protected function _dereferenceTokens($value)
     {
+        if (is_scalar($value) && !is_string($value)) {
+            return $value;
+        }
+
         try {
             $value = $this->_normalizeString($value);
         }
