@@ -14,6 +14,7 @@ use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
 use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\String\StringableSplitCapableTrait;
+use Psr\Container\ContainerInterface as BaseContainerInterface;
 use Iterator;
 use RuntimeException;
 use stdClass;
@@ -95,6 +96,7 @@ class DereferencingConfigMap extends AbstractBaseMap
      * @since [*next-version*]
      *
      * @param ArrayObject|array|stdClass $elements The elements of the map.
+     * @param BaseContainerInterface The container that will be used for token de-referencing.
      */
     public function __construct($elements, $container = null)
     {
