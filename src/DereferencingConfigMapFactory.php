@@ -103,7 +103,7 @@ class DereferencingConfigMapFactory extends AbstractRecursiveMapFactory implemen
      *
      * @since [*next-version*]
      */
-    protected function _normalizeScalarChild($child, $config)
+    protected function _normalizeSimpleChild($child, $config)
     {
         return $child;
     }
