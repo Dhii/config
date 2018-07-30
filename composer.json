@@ -54,5 +54,10 @@
         "branch-alias": {
             "dev-develop": "0.1.x-dev"
         }
+    },
+    "config": {
+        "platform": {
+            "php": "5.4"
+        }
     }
 }
